@@ -16,7 +16,22 @@ response = requests.get(url, headers=headers, verify=False)
 
 soup = BeautifulSoup(response.text, "html.parser")
 
+headings = soup.find_all("h1")
+
+print("-"*6,"Printing Headings","-"*6)
+for heading in headings:
+    print(heading.text)
+print("-"*6,"Headings Printed","-"*6)
+
 links = soup.find_all("a")
 
+print("-"*6,"Printing Links","-"*6)
 for link in links:
-    print(f"{link.text} : {link['href']}")
+    img = link.find("img")
+
+    if img and img.has_attr('alt'):
+        print(img['alt'])
+    else:
+        print(link.text)
+    
+print("-"*6,"Links Printed","-"*6)
