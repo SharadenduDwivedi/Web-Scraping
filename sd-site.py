@@ -12,26 +12,38 @@ headers = {
 url = "https://www.sharadendu-dwivedi.vercel.app"
 
 # response = requests.get(url)
+
+
 response = requests.get(url, headers=headers, verify=False)
 
 soup = BeautifulSoup(response.text, "html.parser")
 
-headings = soup.find_all("h1")
+navigationLinks = soup.find("div", class_="pages")
 
-print("-"*6,"Printing Headings","-"*6)
-for heading in headings:
-    print(heading.text)
-print("-"*6,"Headings Printed","-"*6)
+links = navigationLinks.find_all("a")
 
-links = soup.find_all("a")
-
-print("-"*6,"Printing Links","-"*6)
 for link in links:
-    img = link.find("img")
-
-    if img and img.has_attr('alt'):
-        print(img['alt'])
-    else:
+    if link['href'] != "":
         print(link.text)
-    
-print("-"*6,"Links Printed","-"*6)
+    else:
+        print("Nothing")
+
+        
+# headings = soup.find_all("h1")
+
+# print("-"*6,"Printing Headings","-"*6)
+# for heading in headings:
+#     print(heading.text)
+# print("-"*6,"Headings Printed","-"*6)
+
+# links = soup.find_all("a")
+
+# print("-"*6,"Printing Links","-"*6)
+# for link in links:
+#     img = link.find("img")
+
+#     if img and img.has_attr('alt'):
+#         print(img['alt'])
+#     else:
+#         print(link.text)
+# print("-"*6,"Links Printed","-"*6)
