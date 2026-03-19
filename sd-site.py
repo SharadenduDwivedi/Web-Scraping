@@ -22,12 +22,12 @@ navigationLinks = soup.find("div", class_="pages")
 
 links = navigationLinks.find_all("a")
 
+
 for link in links:
     if link['href'] != "":
         print(link.text)
     else:
         print("Nothing")
-
         
 # headings = soup.find_all("h1")
 
