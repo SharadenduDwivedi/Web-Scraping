@@ -6,7 +6,7 @@ from googleapiclient.discovery import build
 load_dotenv()
 API_KEY = os.getenv('YOUTUBE_API_KEY')
 
-def get_youtube_comments(video_id, max_comments=500):
+def get_youtube_comments(video_id, max_comments):
     youtube = build('youtube', 'v3', developerKey=API_KEY)
     comments_data = []
     next_page_token = None
@@ -59,9 +59,10 @@ def save_to_csv(data, filename):
 VIDEO_ID = input("Enter the Youtube Video ID: ")
 user_filename = input("Enter filename for CSV (without .csv): ")
 full_filename = f"{user_filename}.csv"
+comments_count = int(input("Enter how many comments you want to extract: "))
 
 try:
-    all_comments = get_youtube_comments(VIDEO_ID, max_comments=500)
+    all_comments = get_youtube_comments(VIDEO_ID, max_comments=comments_count)
     if all_comments:
         # Pass the filename here!
         save_to_csv(all_comments, full_filename)
